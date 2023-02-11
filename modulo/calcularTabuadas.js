@@ -1,56 +1,43 @@
 /********************************************************************************************************************
-
 * Autor: Lohannes
-
-* Data: 09/02/2023
-
-* Versão: 1.0.2.09.23
-
-* Objetivo: .
-
+* Data: 11/02/2023
+* Versão: 1.0.2.11.23
+* Objetivo: Calculará as tabuadas dos números escolhidos e fará as multiplicações apenas entre os números escolhidos.
 ********************************************************************************************************************/
 
 //Retorna o processamento de uma qualquer até um contador qualquer.
 
 const calcularTabuada = function (minMultiplicando, maxMultiplicando, minMultiplicador, maxMultiplicador) {
-
-    let valorMin = Number(String(minMultiplicando).replace(',','.'));
-
-    let valorMax = Number(String(maxMultiplicando).replace(',','.'));
-
-    let maxMulti = Number(String(maxMultiplicador).replace(',','.'));
-
+    let valorMin = Number(minMultiplicando);
+    let valorMax = Number(maxMultiplicando);
+    let maxMulti = Number(maxMultiplicador);
+    let minMultiFixo = Number(minMultiplicador);
     let resultado;
-
     let status = true;
 
-        while(valorMin < valorMax){
-
-                let minMulti = Number(String(minMultiplicador).replace(',','.'));
-
-                console.log('\n\nTabuada do ' + valorMin);
-
-            while(minMulti < maxMulti){
-
+    if (isNaN(valorMin) || isNaN(valorMax) || isNaN(maxMulti) || isNaN(minMultiFixo)) {
+        status = false;
+    } else if (valorMin > valorMax || minMultiFixo > maxMulti) {
+        status = false;
+    } else if(valorMin < 2 || valorMin > 100 || valorMax < 2 || valorMax > 100){
+        status = false;
+    } else if(minMultiFixo < 1 || minMultiFixo > 50 || maxMulti < 1 || maxMulti > 50){
+        status = false;
+    } else {
+        while (!(valorMin > valorMax)) {
+            console.log('\n\nTabuada do ' + valorMin);
+            let minMulti = Number(minMultiplicador);
+            while (!(minMulti > maxMulti)) {
                 resultado = valorMin * minMulti;
-
                 console.log(valorMin + ' X ' + minMulti + ' = ' + resultado);
-
                 minMulti++;
-
-                }
-
-                valorMin++;
-
-         }
-
-    
-
+            }
+            valorMin++;
+        }
+    }
     return status;
-
-    
-
 };
 
-calcularTabuada(0, 10, 5, 12);
-
+module.exports = {
+    calcularTabuada
+}
